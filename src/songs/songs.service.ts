@@ -1,28 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSongDto } from './dtos/create-song.dto';
+import { Repository } from 'typeorm';
+import { SongEntity } from './entities/song-entity';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class SongsService {
-  private songs = [];
+  constructor(
+    @InjectRepository(SongEntity)
+    private songRepository: Repository<SongEntity>,
+  ) {}
 
-  findAllSong() {
-    return this.songs;
+  async findAllSong(): Promise<SongEntity[]> {
+    return await this.songRepository.find();
   }
 
-  createSong(song:CreateSongDto) {
-    this.songs.push(song);
-    return this.songs;
+  async createSong(song: CreateSongDto): Promise<SongEntity> {
+    const newSong = new SongEntity();
+    newSong.artits = song.artists;
+    newSong.duration = song.duration;
+    newSong.lyrics = song.lyrics;
+    newSong.releaseDate = song.releaseDate;
+    newSong.title = song.title;
+    return await this.songRepository.save(newSong);
   }
 
-  getSong() {
-    return 'get a specific song';
+  async getSong(id: number): Promise<SongEntity> {
+    return await this.songRepository.findOneBy({ id: id });
   }
 
-  deleteSong() {
-    return ' delete song';
+  deleteSong(id: number) {
+    return this.songRepository.delete({ id: id });
   }
 
-  updateSong() {
+  updateSong(id: number) {
     return ' Update song';
   }
 }
