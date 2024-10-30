@@ -12,6 +12,7 @@ import {
 } from '@nestjs/common';
 import { SongsService } from './songs.service';
 import { CreateSongDto } from './dtos/create-song.dto';
+import { UpdateSongDto } from './dtos/update-song.dto';
 
 @Controller('songs')
 export class SongsController {
@@ -46,12 +47,15 @@ export class SongsController {
   }
 
   @Put(':id')
-  updateSong(@Param('id', new ParseIntPipe()) id: number) {
-    return this.songsService.updateSong(id);
+  updateSong(@Param('id', new ParseIntPipe()) id: number,@Body() updateSongDto:UpdateSongDto) {
+    return this.songsService.updateSong(id,updateSongDto);
   }
 
   @Delete(':id')
   deleteSong(@Param('id', new ParseIntPipe()) id: number) {
     return this.songsService.deleteSong(id);
   }
+
+
+  
 }
