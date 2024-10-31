@@ -16,6 +16,7 @@ import { UserEntity } from './entities/user-entity';
 import { AuthModule } from './auth/auth.module';
 import { PlaylistModule } from './playlist/playlist.module';
 import { PlaylistEntity } from './entities/playlist-entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -27,11 +28,12 @@ import { PlaylistEntity } from './entities/playlist-entity';
       username: 'root',
       password: 'root',
       database: 'root',
-      entities: [SongEntity, ArtistEntity, UserEntity, PlaylistEntity],
+      entities: [SongEntity, ArtistEntity, UserEntity,PlaylistEntity],
       synchronize: true,
     }),
     AuthModule,
     PlaylistModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
