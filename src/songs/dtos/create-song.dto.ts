@@ -15,7 +15,8 @@ export class CreateSongDto {
 
   @IsNotEmpty()
   @IsArray()
-  artists: string[];
+  @IsNumber({}, { each: true })
+  readonly artists;
 
   @IsNotEmpty()
   @IsNumber()
