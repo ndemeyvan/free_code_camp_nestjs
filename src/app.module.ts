@@ -13,6 +13,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SongEntity } from './songs/entities/song-entity';
 import { ArtistEntity } from './entities/artist-entity';
 import { UserEntity } from './entities/user-entity';
+import { AuthModule } from './auth/auth.module';
+import { PlaylistModule } from './playlist/playlist.module';
+import { PlaylistEntity } from './entities/playlist-entity';
 
 @Module({
   imports: [
@@ -24,9 +27,11 @@ import { UserEntity } from './entities/user-entity';
       username: 'root',
       password: 'root',
       database: 'root',
-      entities: [SongEntity, ArtistEntity, UserEntity],
+      entities: [SongEntity, ArtistEntity, UserEntity, PlaylistEntity],
       synchronize: true,
     }),
+    AuthModule,
+    PlaylistModule,
   ],
   controllers: [AppController],
   providers: [AppService],
