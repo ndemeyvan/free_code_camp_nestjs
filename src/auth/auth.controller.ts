@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { UserEntity } from 'src/entities/user-entity';
 import { UsersService } from 'src/users/users.service';
 import { CreateUserDTO } from './dto/create-user.dto';
@@ -13,11 +13,16 @@ export class AuthController {
   ) {}
 
   @Post('signup')
-  signup(
+  async signup(
     @Body()
     userDTO: CreateUserDTO,
   ): Promise<UserEntity> {
-    return this.userService.create(userDTO);
+   try {
+    console.log(`### HERE controller 1:`);
+    return await this.userService.create(userDTO);
+   } catch (error) {
+    throw new HttpException(error.driverError.detail,HttpStatus.BAD_REQUEST)
+   }
   }
   //
 

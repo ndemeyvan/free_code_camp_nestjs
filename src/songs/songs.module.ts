@@ -8,8 +8,8 @@ import { PlaylistService } from 'src/playlist/playlist.service';
 import { AuthService } from 'src/auth/auth.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SongEntity,ArtistEntity])],
+  imports: [TypeOrmModule.forFeature([SongEntity, ArtistEntity])],
   controllers: [SongsController],
-  providers: [SongsService ],
+  providers: [SongsService],
 })
 export class SongsModule {}
